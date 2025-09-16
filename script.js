@@ -1,5 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Script loaded and running.");
+    const AUDIO_DURATION = 95, FADE = 15, FADE_OUT_START = 80;
+
+    function setupAudio() {
+        const audio = new Audio('Fleshy Decay - Sonauto.ai.ogg');
+        audio.loop = false; audio.preload = 'auto';
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        const ctx = new Ctx(); const src = ctx.createMediaElementSource(audio);
+        const gain = ctx.createGain(); gain.gain.value = 0;
+        src.connect(gain).connect(ctx.destination);
+        
+        const apply = () => {
+            const t = audio.currentTime; let g = 1;
+            if (t < FADE) g = t / FADE;
+            else if (t >= FADE_OUT_START) g = Math.max(0, (AUDIO_DURATION - t) / FADE);
+            gain.gain.setTargetAtTime(g, ctx.currentTime, 0.05);
+        };
+        audio.addEventListener('timeupdate', apply);
+        audio.addEventListener('seeked', apply);
+        
+        audio.addEventListener('ended', () => { audio.currentTime = 0; audio.play(); });
+        const unlockBtn = document.getElementById('audio-unlock');
+        const tryPlay = () => audio.play().catch(() => { unlockBtn.hidden = false; });
+        tryPlay();
+        unlockBtn?.addEventListener('click', async () => {
+            unlockBtn.hidden = true; if (ctx.state === 'suspended') await ctx.resume(); tryPlay();
+        });
+    }
 
     function adjustLayout() {
         const sidePanels = document.querySelectorAll('.side-panel');
@@ -110,4 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
         adjustLayout();
         updateBackgroundDrip();
     });
+
+    setupAudio();
 });

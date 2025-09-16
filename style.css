@@ -99,7 +99,14 @@ h1 {
     gap: 1.5vmin;
     height: 100%;
     justify-content: space-around;
-    overflow: hidden; /* Added to prevent child overflow from breaking layout */
+    overflow: auto; /* allow scrolling for added items */
+}
+
+.side-panel::-webkit-scrollbar {
+    width: 6px; height: 6px;
+}
+.side-panel::-webkit-scrollbar-thumb {
+    background: #333;
 }
 
 .side-panel.vertical-aspect .feature-box {

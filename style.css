@@ -110,6 +110,14 @@ h1 {
     background: #333;
 }
 
+.panel-track {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vmin;
+    height: 100%;
+    will-change: transform;
+}
+
 .side-panel.vertical-aspect .feature-box {
     aspect-ratio: auto;
 }

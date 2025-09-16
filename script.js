@@ -1,3 +1,5 @@
+
+```javascript
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Script loaded and running.");
     const AUDIO_DURATION = 95, FADE = 15, FADE_OUT_START = 80;
@@ -9,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = new Ctx(); const src = ctx.createMediaElementSource(audio);
         const gain = ctx.createGain(); gain.gain.value = 0;
         src.connect(gain).connect(ctx.destination);
-        
+
         const apply = () => {
             const t = audio.currentTime; let g = 1;
             if (t < FADE) g = t / FADE;
@@ -18,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         audio.addEventListener('timeupdate', apply);
         audio.addEventListener('seeked', apply);
-        
+
         audio.addEventListener('ended', () => { audio.currentTime = 0; audio.play(); });
         const unlockBtn = document.getElementById('audio-unlock');
         const tryPlay = () => audio.play().catch(() => { unlockBtn.hidden = false; });
@@ -34,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const content = document.querySelector('.content');
         if (!content) return;
-        
+
         const contentHeight = content.clientHeight;
         const panelWidth = content.clientWidth / 4;
 
@@ -126,6 +128,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
+    function typeText(el, text, speed = 40) {
+        el.textContent = '';
+        let i = 0;
+        return new Promise(res => {
+            const tick = () => { el.textContent += text[i++] || ''; i <= text.length ? setTimeout(tick, speed) : res(); };
+            tick();
+        });
+    }
+
+    function initOverlayFlow() {
+        const overlay = document.getElementById('ui-overlay');
+        const prompt = document.getElementById('overlay-prompt');
+        const yesBtn = document.getElementById('overlay-yes');
+        const title = document.getElementById('main-title');
+        const titleText = title.getAttribute('aria-label') || "NO, I'M NOT A HUMAN";
+        typeText(prompt, "Are you a human?").then(() => { yesBtn.disabled = false; });
+        yesBtn.addEventListener('click', () => {
+            setupAudio(); typeText(title, titleText, 30);
+            overlay.classList.add('fade-out');
+        }, { once: true });
+    }
+
     // Initial adjustment
     adjustLayout();
     updateBackgroundDrip();
@@ -137,6 +161,5 @@ document.addEventListener('DOMContentLoaded', () => {
         adjustLayout();
         updateBackgroundDrip();
     });
-
-    setupAudio();
+    initOverlayFlow();
 });

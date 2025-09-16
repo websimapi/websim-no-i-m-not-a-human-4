@@ -290,3 +290,45 @@ footer {
   padding: 0.5rem 0.75rem; background: rgba(0,0,0,0.6);
   border: 1px solid #ccc; color: #ccc; z-index: 200; cursor: pointer;
 }
+
+.ui-overlay {
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    display: grid;
+    place-items: center;
+    z-index: 300;
+    transition: opacity 0.6s ease;
+    opacity: 1;
+}
+
+.ui-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.overlay-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.type-line {
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(1rem, 3vmin, 1.6rem);
+    color: #ccc;
+}
+
+.overlay-btn {
+    padding: 0.5em 1.2em;
+    background: transparent;
+    border: 2px solid #ccc;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.overlay-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

@@ -36,7 +36,7 @@
     <div class="green-filter"></div>
     <div id="app">
         <header>
-            <h1>NO, I'M NOT A HUMAN</h1>
+            <h1 id="main-title" aria-label="NO, I'M NOT A HUMAN"></h1>
             <a href="https://store.steampowered.com/app/3180070/No_Im_not_a_Human/" target="_blank" class="credits-btn">
                 CREDITS
             </a>
@@ -98,6 +98,12 @@
     </div>
     <script type="module" src="script.js"></script>
     <button id="audio-unlock" class="audio-unlock" hidden>Enable Audio</button>
+    <div class="ui-overlay" id="ui-overlay" aria-modal="true" role="dialog">
+        <div class="overlay-inner">
+            <p id="overlay-prompt" class="type-line" aria-live="polite"></p>
+            <button id="overlay-yes" class="overlay-btn" disabled>Yes</button>
+        </div>
+    </div>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>

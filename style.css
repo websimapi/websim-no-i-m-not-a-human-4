@@ -98,8 +98,8 @@ h1 {
     flex-direction: column;
     gap: 1.5vmin;
     height: 100%;
-    justify-content: space-around;
-    overflow: auto; /* allow scrolling for added items */
+    justify-content: flex-start;
+    overflow: hidden; /* hide overflow to show only 5 at a time */
 }
 
 .side-panel::-webkit-scrollbar {
@@ -110,16 +110,16 @@ h1 {
 }
 
 .side-panel.vertical-aspect .feature-box {
-    aspect-ratio: 9 / 16;
+    aspect-ratio: auto;
 }
 
 .feature-box {
     border: 2px solid #666;
     background-color: #000;
     overflow: hidden;
-    aspect-ratio: 16 / 9;
-    flex-grow: 1; /* Allow boxes to grow and shrink */
-    min-height: 0; /* Important for flex-shrink to work correctly */
+    aspect-ratio: auto;
+    height: calc((100% - (1.5vmin * 4)) / 5); /* exactly 5 visible rows */
+    flex: 0 0 auto;
     transition: aspect-ratio 0.3s ease;
 }
 

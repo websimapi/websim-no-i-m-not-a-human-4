@@ -66,21 +66,24 @@ h1 {
 }
 
 .credits-btn {
-    position: absolute;
-    top: 1vmin;
-    right: 2vmin;
-    padding: 0.5em 1em;
-    background-color: rgba(204, 204, 204, 0.1);
-    border: 1px solid #ccc;
-    color: #ccc;
-    text-decoration: none;
-    font-size: clamp(0.7rem, 2vmin, 0.9rem);
-    transition: background-color 0.3s, color 0.3s;
+    position: absolute; top: 0.75vmin; right: 1vmin;
+    width: 34px; height: 34px; display: grid; place-items: center;
+    background: rgba(204,204,204,0.08); border: 1px solid #ccc; color: #ccc;
+    border-radius: 50%; font-size: 0.95rem; line-height: 1; text-decoration: none; z-index: 150;
 }
 
 .credits-btn:hover {
     background-color: #ccc;
     color: #000;
+}
+
+.credits-btn:hover::after { opacity: 1; transform: translateY(0); }
+
+.credits-btn::after {
+    content: attr(data-tooltip); position: absolute; top: 100%; right: 0;
+    background: rgba(0,0,0,0.9); border: 1px solid #ccc; color: #ccc;
+    padding: 0.4rem 0.6rem; font-size: 0.8rem; white-space: pre-line;
+    transform: translateY(6px); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s;
 }
 
 .content {
